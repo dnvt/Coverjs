@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="./css/main.css" type="text/css" media="all"> 
+	<link rel=StyleSheet href="../css/controls.css" type="text/css" media=screen>
+<title>Wolfgang Amadeus Phoenix CSS3</title>
+</head>
+<body>
+	<div class="logo">
+		<div>
+			<div class="backwhite"></div>
+			<div class="backg bg1"></div>
+			<div class="clipbg2">
+				<div class="backg bg2"></div>
+			</div>
+			<div class="backg bg3"></div>
+			<div class="backg bg4"></div>
+			<div class="backg bg5"></div>
+			<div class="backg bg6"></div>
+			<div class="backg bg7"></div>
+			<div class="backg bg8"></div>
+			<div class="backg bg9"></div>
+			<div class="backg bg10"></div>
+			<div class="backg bg11"></div>
+			<div class="backg bg12"></div>
+		</div>
+		<div class="wind"></div>
+		<div class="wind"></div>
+		<div class="wind"></div>
+		<div class="wind"></div>
+		<div class="wind"></div>
+		<div class="wind"></div>
+		<div class="wind"></div>
+		<div class="wind"></div>
+		<div class="wind"></div>
+		<div class="rot1 b9">
+			<div class="ft b1"></div>
+			<div class="bomb1 b1"></div>
+			<div class="bomb2 b1"></div>
+			<div class="bomb2 b1 s-1"></div>
+			<div class="bck b1"></div>
+			<div class="bckt1 b1"></div>
+			<div class="bckt2 b1"></div>
+			<div class="s-1 bckb">
+				<div class="bckt1 b1"></div>
+				<div class="bckt2 b1"></div>
+			</div>
+		</div>
+		<div class="rot2">
+			<div class="ft b2"></div>
+			<div class="bomb1 b2"></div>
+			<div class="bomb2 b2"></div>
+			<div class="bomb2 b2 s-1"></div>
+			<div class="bck b2"></div>
+			<div class="bckt1 b2"></div>
+			<div class="bckt2 b2"></div>
+			<div class="s-1 bckb">
+				<div class="bckt1 b2"></div>
+				<div class="bckt2 b2"></div>
+			</div>
+		</div>
+		<div class="rot3">
+			<div class="ft b3"></div>
+			<div class="bomb1 b3"></div>
+			<div class="bomb2 b3"></div>
+			<div class="bomb2 b3 s-1"></div>
+			<div class="bck b3"></div>
+			<div class="bckt1 b3"></div>
+			<div class="bckt2 b3"></div>
+			<div class="s-1 bckb">
+				<div class="bckt1 b3"></div>
+				<div class="bckt2 b3"></div>
+			</div>
+		</div>
+		<object class="wolfgang" type="image/svg+xml" data="wolfgang.svg"></object>
+
+	</div>
+  <section>
+    <div id="controls">
+      <div id="infos">
+        <span id="buttons">
+	        <button id="play" onclick="runCmd(this)" data-func="play" disabled></button>
+	        <button id="pause" onclick="runCmd(this)" data-func="pause" disabled></button>
+        </span>
+	     <h1>Lisztomania</h1>
+	     <h2>Wolfgang Amadeus Phoenix</h2>
+	     <h1>by Phoenix</h1>
+	     <div id="external">
+	     	<a id="itunes" href="http://itunes.apple.com/us/album/lisztomania/id315002203?i=315002364&uo=4" target="itunes_store">iTunes</a>
+	     	<a id="website" href="http://www.wearephoenix.com/" target="_blank">www</a>
+	     </div>
+     </div>
+    </div>
+  </section>
+
+
+<script src="../js/beatdetektor.js"></script>
+<script>
+
+var bomb1 = document.querySelector('.rot1');
+var wolf  = document.querySelector('.wolfgang');
+var bomb2 = document.querySelector('.rot2');
+var bomb3 = document.querySelector('.rot3');
+var colbg = document.querySelectorAll('.backg');
+var wind  = document.querySelectorAll('.wind');
+
+
+
+var STAGES = [
+  function() {
+
+    ctx.fillStyle = 'black';
+    goCmd.className = '';
+
+  }
+];
+
+function runCmd(el) {
+  if (typeof el == 'string') {
+    var func = el;
+  } else {
+    var func = el.dataset.func.toLowerCase();
+  }
+  sound[func]();
+  el.disabled = !el.disabled;
+  switch (func) {
+    case 'play':
+      document.querySelector("[data-func='pause']").disabled = false;
+      document.querySelector("[data-func='pause']").style.display = "block";
+      document.querySelector("[data-func='play']").style.display = "none";
+      break;
+    case 'pause':
+      document.querySelector("[data-func='play']").disabled = false;
+      document.querySelector("[data-func='play']").style.display = "block";
+      document.querySelector("[data-func='pause']").style.display = "none";
+      break;
+    default:
+      // noop
+  }
+}
+
+function Sound() {
+  const MIX_TO_MONO = false;
+  const NUM_SAMPLES = 2048;
+
+  var self_ = this;
+  var context_ = new (window.AudioContext || window.webkitAudioContext)();
+  var source_ = null;
+  var jsProcessor_ = null;
+  var analyser_ = null;
+  var viewTimeDomain_ = false;
+
+  var viewportOffset_ = 50 //document.getElementById('viewport-offset');
+
+  var ftimer = 0;
+  var bd = new BeatDetektor();
+  var vu = new BeatDetektor.modules.vis.VU();
+  var portion = 0;
+
+  var processAudio_ = function(e) {
+
+    // Get left channel input. No need for output arrays. They're hooked up
+    // directly to the destination, and we're not doing any processing.
+    var inputArrayL = e.inputBuffer.getChannelData(0);
+
+    var freqByteData = new Uint8Array(analyser_.frequencyBinCount);
+
+    if (viewTimeDomain_) {
+      analyser_.getByteTimeDomainData(freqByteData);
+    } else {
+      analyser_.getByteFrequencyData(freqByteData);
+      //analyser_.fftSize = 2048;
+    }
+    
+     bd.process(context_.currentTime, inputArrayL);
+      ftimer += bd.last_update;
+      if (ftimer > 1.0 / 24.0) {
+        vu.process(bd, ftimer);
+        ftimer = 0;
+      }
+
+      if (vu.vu_levels.length) {
+        var z = vu.vu_levels[0];
+        }
+        //redline.style.webkitTransform = 'rotate(' + ( 9 + 100 * z ) + 'deg) skewy(88.8deg)';
+
+
+    self_.renderFFT('goCmd', freqByteData);
+
+  };
+
+  this.renderFFT = function(format, freqByteData) {
+      freqByteData = freqByteData.subarray(200);
+		bomb1.style.top = (100 - freqByteData[200]/5) + 'px';
+		wolf.style.top = (34 - freqByteData[200]/5) + 'px';
+		bomb2.style.top = (340 - freqByteData[300]/5) + 'px';
+		bomb3.style.top = (504 - freqByteData[400]/5) + 'px';
+		
+      for (var i = 0; i <12 ; ++i){
+      	colbg[i].style.backgroundColor = ' rgb(255,189,' + (210 - freqByteData[50]) + ')';
+      	if (i<9){
+	 	wind[i].style.top = 40 + (i*70) + 'px';
+	 	wind[i].style.webkitTransform = 'rotate(' + (-3 -3*i) + 'deg) skewx(-89deg)';
+	 	wind[i].style.zIndex = Math.round(Math.random()*7);
+	 	wind[i].style.width = ( freqByteData[i*20]/(1.5)) + 'px';
+	 	wind[i].style.left = 150 + freqByteData[i*20] + 'px'; 
+	 	if (freqByteData[300] > 0){
+	 		wind[i].style.opacity = Math.random()*.4;
+	 	};
+	 	};
+	};	       
+
+  };
+
+  this.initAudio = function(arrayBuffer) {
+    if (source_) {
+      runCmd('pause');
+    }
+
+    source_ = context_.createBufferSource();
+    context_.decodeAudioData(arrayBuffer, function(buffer) {
+    	 source_.buffer = buffer;
+       }, function(e) {
+    	 console.log(e);
+       });
+    source_.looping = true;
+
+    // This AudioNode will do the amplitude modulation effect directly in JavaScript
+    jsProcessor_ = context_.createScriptProcessor(NUM_SAMPLES /*bufferSize*/, 1 /*num inputs*/, 1 /*num outputs*/);
+    jsProcessor_.onaudioprocess = processAudio_;
+
+    analyser_ = context_.createAnalyser();
+
+    source_.connect(context_.destination);
+
+    document.querySelector("[data-func='play']").disabled = false;
+   	parent.$('body').trigger( 'coverloaded' );
+  };
+
+  this.load = function(url) {
+    var request = new XMLHttpRequest();
+    request.open('GET', url, true);
+    request.responseType = 'arraybuffer';
+    request.onload = function(e) {
+      self_.initAudio(request.response);
+    };
+    request.send();
+  };
+
+  this.play = function() {
+    if (!source_) {
+      sound.load('lisztomania.mp3');
+    } else {               
+      source_.connect(context_.destination);
+      source_.connect(analyser_);
+
+      analyser_.connect(jsProcessor_);
+      jsProcessor_.connect(context_.destination);
+
+      source_.start(0);
+    }
+  };
+
+  this.pause = function() {
+    //source_.noteOff(0);
+    source_.disconnect(0);
+    jsProcessor_.disconnect(0);
+    analyser_.disconnect(0);
+
+  };
+}
+
+var sound = new Sound();
+sound.load('lisztomania.mp3');
+</script>
+</body>
+
+</html>

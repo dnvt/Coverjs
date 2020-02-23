@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--<meta http-equiv="refresh" content="1">-->
+	<link rel=StyleSheet href="./css/main.css" type="text/css" media=screen>
+	<link rel=StyleSheet href="../css/controls.css" type="text/css" media=screen>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script src="./js/waves.js"></script>
+	
+</head>
+
+<body>
+	
+  <section>
+    <div id="controls">
+      <div id="infos">
+        <span id="buttons">
+	        <button id="play" onclick="runCmd(this)" data-func="play" disabled></button>
+	        <button id="pause" onclick="runCmd(this)" data-func="pause" disabled></button>
+        </span>
+	     <h1>Crave You Ft. Giselle</h1>
+	     <h2>Crave You</h2>
+	     <h1>by Flight Facilities</h1>
+	     <div id="external">
+	     	<a id="itunes" href="http://itunes.apple.com/us/album/crave-you-feat.-giselle/id363753356?uo=4" target="itunes_store">iTunes</a>
+	     	<a id="website" href="http://www.flightfacilities.com/" target="_blank">www</a>
+	     </div>
+     </div>
+    </div>
+  </section>
+	
+<div class="logo">
+	<div class="backblue"></div>
+	<div class="backcloud"></div>
+	<div class="redcircle1"></div>
+	<div class="rotate1">
+		<svg class="txt1">
+		  <path id="circle1" d="M 270 64 A 180 180 360 1 1 258 65" style="stroke: none; fill: none;"/>
+		  <text font-size=".7em" fill="white" font-family="Helvetica" font-style="italic" letter-spacing="1px">
+		    <textPath xlink:href="#circle1">
+		            BANGBANG 12INCHES
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            BANGBANG 12INCHES
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            BANGBANG 12INCHES
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            BANGBANG 12INCHES
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            BANGBANG 12INCHES
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		    </textPath>
+		  </text>
+		  <text font-size=".7em" fill="white" font-family="HelveticaNeue-UltraLight" font-style="italic" letter-spacing="1px" font-weight="100">
+		    <textPath xlink:href="#circle1">
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;
+					PRESENTS &#x25C9;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;&nbsp;
+					PRESENTS &#x25C9;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;
+					PRESENTS &#x25C9;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;&nbsp;
+					PRESENTS &#x25C9;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;
+					PRESENTS &#x25C9;
+		    </textPath>
+		  </text>
+		</svg>
+	</div>
+	<div class="bluecircle"></div>
+	<div class="rotate2">
+		<div class="bluecircle2"></div>
+		<div class="bluecircle3"></div>
+		<div id="allwaves"></div>
+		<div id="plane">
+			<div class="bodyplane"></div>
+			<div class="wing"></div>
+			<div class="wing wing2"></div>
+			<div class="backwings"></div>
+		</div>
+	</div>
+	<div class="rotate3">
+		<div class="redcircle2"></div>
+		<svg class="txt2">
+		  <path id="circle2" d="M 270 64 A 93 93 260 1 1 265 64" style="stroke: none; fill: none;"/>
+		  <text font-size=".73em" fill="white" font-family="Helvetica" font-style="italic" letter-spacing="0.0em">
+		    <textPath xlink:href="#circle2">FLIGHT FACILITIES
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            FLIGHT FACILITIES
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;&nbsp;
+		            FLIGHT FACILITIES
+		            
+		    </textPath>
+		  </text>
+		  <text font-size=".68em" fill="white" font-family="HelveticaNeue-UltraLight" font-style="italic" letter-spacing="1px" font-weight="100">
+		    <textPath xlink:href="#circle2">
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;
+		            FT. GISELLE&#x3012;
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            FT. GISELLE&#x3012;
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            FT. GISELLE&#x3012;
+		    </textPath>
+		  </text>
+		</svg>
+	</div>
+	<div class="whitecircle">
+		<div class="rotate4">
+			<div id="logoFF">
+				<div class="ffred"></div>		
+				<div class="ffred ffred2"></div>		
+				<div class="ffblue0"></div>		
+				<div class="ffblue"></div>		
+				<div class="ffblue ffblue2"></div>		
+				<div class="ffblue ffblue3"></div>		
+				<div class="ffblue ffblue3 ffblue4"></div>		
+				<div class="ffwhitehide"></div>		
+				<div class="ffwhitehide ffwhitehide2"></div>		
+				<div class="ffwhite"></div>		
+				<div class="ffwhite ffwhite2"></div>		
+			</div>
+		</div>
+		</div>
+	</div>
+</div>
+<script src="../js/beatdetektor.js"></script>
+<script>
+
+
+var rot1 = document.querySelector('.rotate1');
+var rot2 = document.querySelector('.rotate2');
+var rot3 = document.querySelector('.rotate3');
+var rot4 = document.querySelector('.rotate4');
+var circ1 = document.querySelector('.redcircle1');
+
+
+var STAGES = [
+  function() {
+
+    ctx.fillStyle = 'black';
+    goCmd.className = '';
+
+  }
+];
+
+function runCmd(el) {
+  if (typeof el == 'string') {
+    var func = el;
+  } else {
+    var func = el.dataset.func.toLowerCase();
+  }
+  sound[func]();
+  el.disabled = !el.disabled;
+  switch (func) {
+    case 'play':
+      document.querySelector("[data-func='pause']").disabled = false;
+      document.querySelector("[data-func='pause']").style.display = "block";
+      document.querySelector("[data-func='play']").style.display = "none";
+      break;
+    case 'pause':
+      document.querySelector("[data-func='play']").disabled = false;
+      document.querySelector("[data-func='play']").style.display = "block";
+      document.querySelector("[data-func='pause']").style.display = "none";
+	  initwave();
+	  		
+      break;
+    default:
+      // noop
+  }
+}
+				function initwave(){
+			 var waves = document.querySelectorAll('.wave');
+
+				    for (var i = 0; i < 34 ; i++){
+				    	waves[i].style.borderWidth = ((-34*i)/35*4 +.9) + 'px';	
+				    }	
+				}
+function Sound() {
+  const MIX_TO_MONO = false;
+  const NUM_SAMPLES = 2048;
+
+  var self_ = this;
+  var context_ = new (window.AudioContext || window.webkitAudioContext)();
+  var source_ = null;
+  var jsProcessor_ = null;
+  var analyser_ = null;
+  var viewTimeDomain_ = false;
+
+  var viewportOffset_ = 50 //document.getElementById('viewport-offset');
+  
+  var ftimer = 0;
+  var bd = new BeatDetektor();
+  var vu = new BeatDetektor.modules.vis.VU();
+  var portion = 0;
+
+  var processAudio_ = function(e) {
+
+    // Get left channel input. No need for output arrays. They're hooked up
+    // directly to the destination, and we're not doing any processing.
+    var inputArrayL = e.inputBuffer.getChannelData(0);
+
+    var freqByteData = new Uint8Array(analyser_.frequencyBinCount);
+
+    if (viewTimeDomain_) {
+      analyser_.getByteTimeDomainData(freqByteData);
+    } else {
+      analyser_.getByteFrequencyData(freqByteData);
+      //analyser_.fftSize = 2048;
+    }
+    
+     bd.process(context_.currentTime, inputArrayL);
+      ftimer += bd.last_update;
+      if (ftimer > 1.0 / 24.0) {
+        vu.process(bd, ftimer);
+        ftimer = 0;
+      }
+
+      if (vu.vu_levels.length) {
+        var z = vu.vu_levels[0];
+        }
+        //redline.style.webkitTransform = 'rotate(' + ( 9 + 100 * z ) + 'deg) skewy(88.8deg)';
+
+
+    self_.renderFFT('goCmd', freqByteData);
+
+  };
+
+  this.renderFFT = function(format, freqByteData) {
+ var waves = document.querySelectorAll('.wave');
+     freqByteData = freqByteData.subarray(200);
+				
+
+				
+		rot1.style.webkitTransform = 'rotate('+(-freqByteData[150])+'deg)';
+		rot2.style.webkitAnimation = 'arcrotation 20s .3s infinite linear';
+		rot3.style.webkitTransform = 'rotate('+freqByteData[400]+'deg)';
+		rot4.style.webkitTransform = 'rotateY('+(100 - freqByteData[12]/2) + 'deg)';
+		circ1.style.webkitTransform =  'scale(' +(1+freqByteData[200]/500) + ')';
+		circ1.style.opacity = freqByteData[200]/500 + .3;
+		
+
+	    for (var i = 0; i <34 ; i++){
+	    	waves[i].style.borderWidth = ((freqByteData[200] + (i/35*4 +.9))/10) + 'px';	
+	    	//console.log(i+'=   '+(freqByteData[200] + (i/35*4 +.9)));
+	    }
+
+  };
+
+  this.initAudio = function(arrayBuffer) {
+    if (source_) {
+      runCmd('pause');
+    }
+
+    source_ = context_.createBufferSource();
+    context_.decodeAudioData(arrayBuffer, function(buffer) {
+    	 source_.buffer = buffer;
+       }, function(e) {
+    	 console.log(e);
+       });
+    source_.looping = true;
+
+    // This AudioNode will do the amplitude modulation effect directly in JavaScript
+    jsProcessor_ = context_.createScriptProcessor(NUM_SAMPLES /*bufferSize*/, 1 /*num inputs*/, 1 /*num outputs*/);
+    jsProcessor_.onaudioprocess = processAudio_;
+
+    analyser_ = context_.createAnalyser();
+
+    source_.connect(context_.destination);
+
+    document.querySelector("[data-func='play']").disabled = false;
+    
+  	parent.$('body').trigger( 'coverloaded' );
+  };
+
+  this.load = function(url) {
+    var request = new XMLHttpRequest();
+    request.open('GET', url, true);
+    request.responseType = 'arraybuffer';
+    request.onload = function(e) {
+      self_.initAudio(request.response);
+    };
+    request.send();
+  };
+
+  this.play = function() {
+    if (!source_) {
+      sound.load('crave_you.mp3');
+    } else {               
+      source_.connect(context_.destination);
+      source_.connect(analyser_);
+
+      analyser_.connect(jsProcessor_);
+      jsProcessor_.connect(context_.destination);
+
+      source_.start();
+    }
+  };
+
+  this.pause = function() {
+    //source_.noteOff(0);
+    source_.disconnect(0);
+    jsProcessor_.disconnect(0);
+    analyser_.disconnect(0);
+
+  };
+}
+
+var sound = new Sound();
+sound.load('crave_you.mp3');
+</script>
+</body>
+
+</html>

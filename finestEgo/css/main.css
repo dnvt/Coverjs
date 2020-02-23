@@ -1,0 +1,549 @@
+article, aside, footer, header, hgroup, nav, section {
+	display: block;
+}
+body {
+	margin: 0px;
+	padding: 0px;
+	font-family: Helvetica;
+	height: 100%;
+	overflow: hidden;
+}
+#canvas {
+	margin: -100px;
+	padding: 0px;
+	width: 739px;
+	height: 741px;
+	background: #f1c348;
+	border-top: 28px solid #fff;
+	border-left: 28px solid #fff;
+	border-bottom: 33px solid #fff;
+	border-right: 31px solid #fff;
+	z-index: 0;
+	overflow: hidden;
+	transform: scale(.75);
+	-webkit-transform: scale(.75);
+	-o-transform: scale(.75);
+	-moz-transform: scale(.75);
+	-ms-transform: scale(.75);
+	-webkit-transform: scale(.75);
+}
+#encart {
+	position: absolute;
+	text-align: center;
+	width: 101px;
+	height: 160px;
+	margin: 8px 0 0 8px;
+	padding: 10px;
+	background: #000;
+	box-shadow: 0 0 0 #867f87;
+	z-index: 900;
+	transition: background ease-in 0.3s, box-shadow ease-out 0.4s;
+	-moz-transition: background ease-in 0.3s, box-shadow ease-out 0.4s;
+	-webkit-transition: background ease-in 0.3s, box-shadow ease-out 0.4s;
+	-o-transition: background ease-in 0.3s, box-shadow ease-out 0.4s;
+	-ms-transition: background ease-in 0.3s, box-shadow ease-out 0.4s;
+	transform: scale(.8);
+	-webkit-transform: scale(.8);
+	-o-transform: scale(.8);
+	-moz-transform: scale(.8);
+	-ms-transform: scale(.8);
+	-webkit-transform: scale(.8);
+}
+#jaune {
+	position: absolute;
+	margin: 0px auto;
+	width: 739px;
+	padding: 0;
+	height: 220px;
+	border-bottom: 0px solid #867f87;
+	background: #f1c348;
+	transition: background ease-in 0.1s, box-shadow ease-out 0.2s, height ease-out 0.3s;
+	-moz-transition: background ease-in 0.1s, box-shadow ease-out 0.2s, height ease-out 0.3s;
+	-webkit-transition: background ease-in 0.1s, box-shadow ease-out 0.2s, height ease-out 0.3s;
+	-o-transition: background ease-in 0.1s, box-shadow ease-out 0.2s, height ease-out 0.3s;
+	-ms-transition: background ease-in 0.1s, box-shadow ease-out 0.2s, height ease-out 0.3s;
+	z-index: 600;
+}
+#bleuClair1 {
+	position: absolute;
+	margin: 0px auto;
+	width: 739px;
+	padding: 0;
+	height: 10px;
+	top: 502px;
+	box-shadow: 0 0 0 #867f87;
+	background: #1cb4de;
+	transition: background ease-out 0.1s, box-shadow ease-out 0.2s, top ease-out 0.3s;
+	-moz-transition: background ease-out 0.1s, box-shadow ease-out 0.2s, top ease-out 0.3s;
+	-webkit-transition: background ease-out 0.1s, box-shadow ease-out 0.2s, top ease-out 0.3s;
+	-o-transition: background ease-out 0.1s, box-shadow ease-out 0.2s, top ease-out 0.3s;
+	-ms-transition: background ease-out 0.1s, box-shadow ease-out 0.2s, top ease-out 0.3s;
+	z-index: 100;
+}
+#bleuClair2 {
+	position: absolute;
+	margin: 0px auto;
+	width: 739px;
+	padding: 0;
+	height: 15px;
+	top: 511px;
+	box-shadow: 0 0 0 #867f87;
+	background: #1cb4de;
+	transition: background ease-out 0.1s, box-shadow ease-out 0.2s, top ease-out 0.3s;
+	-moz-transition: background ease-out 0.1s, box-shadow ease-out 0.2s, top ease-out 0.3s;
+	-webkit-transition: background ease-out 0.1s, box-shadow ease-out 0.2s, top ease-out 0.3s;
+	-o-transition: background ease-out 0.1s, box-shadow ease-out 0.2s, top ease-out 0.3s;
+	-ms-transition: background ease-out 0.1s, box-shadow ease-out 0.2s, top ease-out 0.3s;
+	z-index: 100;
+}
+#bleuClair3 {
+	position: absolute;
+	margin: 0px auto;
+	width: 739px;
+	padding: 0;
+	height: 20px;
+	top: 521px;
+	box-shadow: 0 0 0 #867f87;
+	background: #1cb4de;
+	z-index: 100;
+	transition: background ease-out 0.1s, box-shadow ease-out 0.2s, top ease-out 0.3s;
+	-moz-transition: background ease-out 0.1s, box-shadow ease-out 0.2s, top ease-out 0.3s;
+	-webkit-transition: background ease-out 0.1s, box-shadow ease-out 0.2s, top ease-out 0.3s;
+	-o-transition: background ease-out 0.1s, box-shadow ease-out 0.2s, top ease-out 0.3s;
+	-ms-transition: background ease-out 0.1s, box-shadow ease-out 0.2s, topease-out 0.3s;
+}
+#bleuSombre {
+	position: absolute;
+	width: 739px;
+	height: 100px;
+	margin: 0px auto;
+	top: 541px;
+	padding: 0;
+	z-index: 300;
+	box-shadow: 0 0 0 #867f87;
+	background: #1488be;
+	transition: background ease-in 0.1s, box-shadow ease-out 0.2s, height ease-out 0.3s;
+	-moz-transition: background ease-in 0.1s, box-shadow ease-out 0.2s, height ease-out 0.3s;
+	-webkit-transition: background ease-in 0.1s, box-shadow ease-out 0.2s, height ease-out 0.3s;
+	-o-transition: background ease-in 0.1s, box-shadow ease-out 0.2s, height ease-out 0.3s;
+	-ms-transition: background ease-in 0.1s, box-shadow ease-out 0.2s, height ease-out 0.3s;
+}
+.rectangle {
+	position: absolute;
+	transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+}
+.triangle1 {
+	position: absolute;
+	top: 10px;
+	left: 150px;
+	clip: rect(-50px, 50px, 50px, -50px);
+}
+.triangle2 {
+	position: absolute;
+	top: 10px;
+	left: 250px;
+	clip: rect(-50px, 50px, 50px, -50px);
+	transform: rotate(90deg);
+	-webkit-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	-o-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+}
+.triangle3 {
+	position: absolute;
+	top: 110px;
+	left: 150px;
+	clip: rect(-50px, 50px, 50px, -50px);
+	transform: rotate(-90deg);
+	-webkit-transform: rotate(-90deg);
+	-moz-transform: rotate(-90deg);
+	-o-transform: rotate(-90deg);
+	-ms-transform: rotate(-90deg);
+}
+.triangle4 {
+	position: absolute;
+	top: 110px;
+	left: 250px;
+	clip: rect(-50px, 50px, 50px, -50px);
+	transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+}
+.tranche {
+	width: 100px;
+	height: 100px;
+}
+.gray1 {
+	background: #dbdadf;
+	transition: all ease-in 0.1s;
+	-moz-transition: all ease-in 0.1s;
+	-webkit-transition: all ease-in 0.1s;
+	-o-transition: all ease-in 0.1s;
+	-ms-transition: all ease-in 0.1s;
+}
+.gray2 {
+	background: #dedde2;
+	transition: all ease-in 0.1s;
+	-moz-transition: all ease-in 0.1s;
+	-webkit-transition: all ease-in 0.1s;
+	-o-transition: all ease-in 0.1s;
+	-ms-transition: all ease-in 0.1s;
+}
+.gray3 {
+	background: #d9d8dd;
+	transition: all ease-in 0.1s;
+	-moz-transition: all ease-in 0.1s;
+	-webkit-transition: all ease-in 0.1s;
+	-o-transition: all ease-in 0.1s;
+	-ms-transition: all ease-in 0.1s;
+}
+.gray4 {
+	background: #c6c5cd;
+	transition: all ease-in 0.1s;
+	-moz-transition: all ease-in 0.1s;
+	-webkit-transition: all ease-in 0.1s;
+	-o-transition: all ease-in 0.1s;
+	-ms-transition: all ease-in 0.1s;
+}
+.gray5 {
+	background: #c0bec9;
+	transition: all ease-in 0.1s;
+	-moz-transition: all ease-in 0.1s;
+	-webkit-transition: all ease-in 0.1s;
+	-o-transition: all ease-in 0.1s;
+	-ms-transition: all ease-in 0.1s;
+}
+.gray6 {
+	background: #cac9d1;
+	transition: all ease-in 0.1s;
+	-moz-transition: all ease-in 0.1s;
+	-webkit-transition: all ease-in 0.1s;
+	-o-transition: all ease-in 0.1s;
+	-ms-transition: all ease-in 0.1s;
+}
+.gray7 {
+	background: #878289;
+	transition: all ease-in 0.1s;
+	-moz-transition: all ease-in 0.1s;
+	-webkit-transition: all ease-in 0.1s;
+	-o-transition: all ease-in 0.1s;
+	-ms-transition: all ease-in 0.1s;
+}
+.gray8 {
+	background: #8c858d;
+	transition: all ease-in 0.1s;
+	-moz-transition: all ease-in 0.1s;
+	-webkit-transition: all ease-in 0.1s;
+	-o-transition: all ease-in 0.1s;
+	-ms-transition: all ease-in 0.1s;
+}
+.gray9 {
+	background: #857e86;
+	transition: all ease-in 0.1s;
+	-moz-transition: all ease-in 0.1s;
+	-webkit-transition: all ease-in 0.1s;
+	-o-transition: all ease-in 0.1s;
+	-ms-transition: all ease-in 0.1s;
+}
+.forme1 {
+	position: absolute;
+	margin: 112px 0 0 -494px;
+	transform: scale(3.3);
+	-webkit-transform: scale(3.3);
+	-o-transform: scale(3.3);
+	-moz-transform: scale(3.3);
+	-ms-transform: scale(3.3);
+	z-index: 700;
+	clip: rect(-50px, 500px, 150px, 150px);
+}
+.forme2 {
+	position: absolute;
+	margin: 290px 0 0 330px;
+	transform: scale(1.3) rotate(180deg);
+	-webkit-transform: scale(1.3) rotate(180deg);
+	-o-transform: scale(1.3) rotate(180deg);
+	-moz-transform: scale(1.3) rotate(180deg);
+	-ms-transform: scale(1.3) rotate(180deg);
+	z-index: 705;
+	clip: rect(-200px, 253px, 200px, 0px);
+}
+.forme3 {
+	position: absolute;
+	margin: 106px 0 0 140px;
+	transform: scale(1.7) rotate(90deg);
+	-webkit-transform: scale(1.7) rotate(90deg);
+	-o-transform: scale(1.7) rotate(90deg);
+	-moz-transform: scale(1.7) rotate(90deg);
+	-ms-transform: scale(1.7) rotate(90deg);
+	z-index: 705;
+	clip: rect(-50px, 500px, 82px, 0px);
+}
+.forme4 {
+	position: absolute;
+	margin: 795px 0 0 161px;
+	transform: scale(1.2) rotate(-90deg);
+	-webkit-transform: scale(1.2) rotate(-90deg);
+	-o-transform: scale(1.2) rotate(-90deg);
+	-moz-transform: scale(1.2) rotate(-90deg);
+	-ms-transform: scale(1.2) rotate(-90deg);
+	z-index: 250;
+}
+.forme5 {
+	position: absolute;
+	margin: 1454px 0 0 375px;
+	transform: scale(3.5) rotate(-90deg);
+	-webkit-transform: scale(3.5) rotate(-90deg);
+	-o-transform: scale(3.5) rotate(-90deg);
+	-moz-transform: scale(3.5) rotate(-90deg);
+	-ms-transform: scale(3.5) rotate(-90deg);
+	z-index: 240;
+	clip: rect(-20px, 500px, 104px, 204px);
+}
+.forme6 {
+	position: absolute;
+	margin: 950px 0 0 652px;
+	transform: scale(1.8) rotate(-90deg);
+	-webkit-transform: scale(1.8) rotate(-90deg);
+	-o-transform: scale(1.8) rotate(-90deg);
+	-moz-transform: scale(1.8) rotate(-90deg);
+	-ms-transform: scale(1.8) rotate(-90deg);
+	z-index: 700;
+	clip: rect(-20px, 280px, 48px, 100px);
+}
+.forme7 {
+	position: absolute;
+	margin: 790px 0 0 965px;
+	transform: scale(1.3) rotate(180deg);
+	-webkit-transform: scale(1.3) rotate(180deg);
+	-o-transform: scale(1.3) rotate(180deg);
+	-moz-transform: scale(1.3) rotate(180deg);
+	-ms-transform: scale(1.3) rotate(180deg);
+	z-index: 705;
+	clip: rect(38px, 300px, 300px, 174px);
+}
+.forme8 {
+	position: absolute;
+	margin: -45px 0 0 -738px;
+	transform: scale(5.7);
+	-webkit-transform: scale(5.7);
+	-o-transform: scale(5.7);
+	-moz-transform: scale(5.7);
+	-ms-transform: scale(5.7);
+	z-index: 85;
+	clip: rect(8px, 259px, 300px, 0px);
+}
+.forme9 {
+	position: absolute;
+	margin: 825px 0 0 725px;
+	transform: scale(0.9) rotate(180deg);
+	-webkit-transform: scale(0.9) rotate(180deg);
+	-o-transform: scale(0.9) rotate(180deg);
+	-moz-transform: scale(0.9) rotate(180deg);
+	-ms-transform: scale(0.9) rotate(180deg);
+	z-index: 705;
+	clip: rect(94px, 300px, 300px, 0px);
+}
+.forme10 {
+	position: absolute;
+	margin: 790px 0 0 806px;
+	transform: scale(2) rotate(180deg);
+	-webkit-transform: scale(2) rotate(180deg);
+	-o-transform: scale(2) rotate(180deg);
+	-moz-transform: scale(2) rotate(180deg);
+	-ms-transform: scale(2) rotate(180deg);
+	z-index: 705;
+	clip: rect(25px, 300px, 300px, 0px);
+}
+.forme11 {
+	position: absolute;
+	margin: 880px 0 0 690px;
+	transform: scale(2.5) rotate(180deg);
+	-webkit-transform: scale(2.5) rotate(180deg);
+	-o-transform: scale(2.5) rotate(180deg);
+	-moz-transform: scale(2.5) rotate(180deg);
+	-ms-transform: scale(2.5) rotate(180deg);
+	z-index: 705;
+	clip: rect(56px, 300px, 300px, 0px);
+}
+.forme12 {
+	position: absolute;
+	margin: 670px 0 0 400px;
+	transform: scale(0.6) rotate(180deg);
+	-webkit-transform: scale(0.6) rotate(180deg);
+	-o-transform: scale(0.6) rotate(180deg);
+	-moz-transform: scale(0.6) rotate(180deg);
+	-ms-transform: scale(0.6) rotate(180deg);
+	z-index: 705;
+	clip: rect(-20px, 300px, 300px, 0px);
+}
+.forme13 {
+	position: absolute;
+	margin: 246px 0 0 124px;
+	transform: scale(1.9) rotate(90deg);
+	-webkit-transform: scale(1.9) rotate(90deg);
+	-o-transform: scale(1.9) rotate(90deg);
+	-moz-transform: scale(1.9) rotate(90deg);
+	-ms-transform: scale(1.9) rotate(90deg);
+	z-index: 85;
+	clip: rect(-20px, 260px, 65px, 0px);
+}
+.forme14 {
+	position: absolute;
+	margin: 623px 0 0 109px;
+	transform: scale(0.6) rotate(90deg);
+	-webkit-transform: scale(0.6) rotate(90deg);
+	-o-transform: scale(0.6) rotate(90deg);
+	-moz-transform: scale(0.6) rotate(90deg);
+	-ms-transform: scale(0.6) rotate(90deg);
+	z-index: 705;
+	clip: rect(-20px, 195px, 500px, 0px);
+}
+.forme15 {
+	position: absolute;
+	margin: 420px 0 0 630px;
+	transform: scale(1.3) rotate(180deg);
+	-webkit-transform: scale(1.3) rotate(180deg);
+	-o-transform: scale(1.3) rotate(180deg);
+	-moz-transform: scale(1.3) rotate(180deg);
+	-ms-transform: scale(1.3) rotate(180deg);
+	z-index: 100;
+	clip: rect(-200px, 253px, 200px, 0px);
+}
+.forme16 {
+	position: absolute;
+	margin: -136px 0 0 775px;
+	transform: scale(1.9) rotate(90deg);
+	-webkit-transform: scale(1.9) rotate(90deg);
+	-o-transform: scale(1.9) rotate(90deg);
+	-moz-transform: scale(1.9) rotate(90deg);
+	-ms-transform: scale(1.9) rotate(90deg);
+	z-index: 705;
+	clip: rect(19px, 500px, 270px, 0px);
+}
+.forme17 {
+	position: absolute;
+	margin: 500px 0 0 1240px;
+	transform: scale(2.7) rotate(180deg);
+	-webkit-transform: scale(2.7) rotate(180deg);
+	-o-transform: scale(2.7) rotate(180deg);
+	-moz-transform: scale(2.7) rotate(180deg);
+	-ms-transform: scale(2.7) rotate(180deg);
+	z-index: 95;
+	clip: rect(-20px, 270px, 270px, 186px);
+}
+.forme18 {
+	position: absolute;
+	margin: 70px 0 0 350px;
+	transform: scale(0.6) rotate(90deg);
+	-webkit-transform: scale(0.6) rotate(90deg);
+	-o-transform: scale(0.6) rotate(90deg);
+	-moz-transform: scale(0.6) rotate(90deg);
+	-ms-transform: scale(0.6) rotate(90deg);
+	z-index: 705;
+	clip: rect(-50px, 270px, 270px, 0px);
+}
+.forme19 {
+	position: absolute;
+	margin: 240px 0 0 590px;
+	transform: scale(0.6) rotate(90deg);
+	-webkit-transform: scale(0.6) rotate(90deg);
+	-o-transform: scale(0.6) rotate(90deg);
+	-moz-transform: scale(0.6) rotate(90deg);
+	-ms-transform: scale(0.6) rotate(90deg);
+	z-index: 705;
+	clip: rect(-50px, 270px, 270px, 0px);
+}
+.forme20 {
+	position: absolute;
+	margin: 26px 0 0 548px;
+	transform: scale(0.6);
+	-webkit-transform: scale(0.6);
+	-o-transform: scale(0.6);
+	-moz-transform: scale(0.6);
+	-ms-transform: scale(0.6);
+	z-index: 705;
+	clip: rect(-20px, 270px, 270px, 0px);
+}
+.forme21 {
+	position: absolute;
+	margin: -366px 0 0 875px;
+	transform: scale(2) rotate(90deg);
+	-webkit-transform: scale(2) rotate(90deg);
+	-o-transform: scale(2) rotate(90deg);
+	-moz-transform: scale(2) rotate(90deg);
+	-ms-transform: scale(2) rotate(90deg);
+	z-index: 700;
+	clip: rect(68px, 270px, 270px, 183px);
+}
+.forme22 {
+	position: absolute;
+	margin: -435px 0 0 705px;
+	transform: scale(1.9) rotate(90deg);
+	-webkit-transform: scale(1.9) rotate(90deg);
+	-o-transform: scale(1.9) rotate(90deg);
+	-moz-transform: scale(1.9) rotate(90deg);
+	-ms-transform: scale(1.9) rotate(90deg);
+	z-index: 610;
+	clip: rect(-20px, 500px, 270px, 229px);
+}
+.forme23 {
+	position: absolute;
+	margin: 118px 0 0 740px;
+	transform: scale(1.3) rotate(180deg);
+	-webkit-transform: scale(1.3) rotate(180deg);
+	-o-transform: scale(1.3) rotate(180deg);
+	-moz-transform: scale(1.3) rotate(180deg);
+	-ms-transform: scale(1.3) rotate(180deg);
+	z-index: 620;
+	clip: rect(-20px, 270px, 91px, 0px);
+}
+.forme24 {
+	position: absolute;
+	margin: -371px 0 0 450px;
+	transform: scale(2.1) rotate(90deg);
+	-webkit-transform: scale(2.1) rotate(90deg);
+	-o-transform: scale(2.1) rotate(90deg);
+	-moz-transform: scale(2.1) rotate(90deg);
+	-ms-transform: scale(2.1) rotate(90deg);
+	z-index: 610;
+	clip: rect(-20px, 500px, 270px, 177px);
+}
+.forme25 {
+	position: absolute;
+	margin: 109px 0 0 450px;
+	transform: scale(1.3) rotate(180deg);
+	-webkit-transform: scale(1.3) rotate(180deg);
+	-o-transform: scale(1.3) rotate(180deg);
+	-moz-transform: scale(1.3) rotate(180deg);
+	-ms-transform: scale(1.3) rotate(180deg);
+	z-index: 605;
+	clip: rect(-20px, 270px, 84px, 0px);
+}
+.forme26 {
+	position: absolute;
+	margin: 136px 0 0 495px;
+	transform: scale(2.3) rotate(180deg);
+	-webkit-transform: scale(2.3) rotate(180deg);
+	-o-transform: scale(2.3) rotate(180deg);
+	-moz-transform: scale(2.3) rotate(180deg);
+	-ms-transform: scale(2.3) rotate(180deg);
+	z-index: 601;
+	clip: rect(25px, 215px, 59px, 0px);
+}
+.forme27 {
+	position: absolute;
+	margin: 295px 0 0 -170px;
+	transform: scale(2.5);
+	-webkit-transform: scale(2.5);
+	-o-transform: scale(2.5);
+	-moz-transform: scale(2.5);
+	-ms-transform: scale(2.5);
+	z-index: 96;
+	clip: rect(-20px, 300px, 300px, 0px);
+}

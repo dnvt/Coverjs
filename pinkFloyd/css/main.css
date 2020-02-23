@@ -1,0 +1,98 @@
+article, aside, footer, header, hgroup, nav, section {
+	display: block;
+}
+body {
+	margin: 0px;
+	padding: 0px;
+	font-family: Helvetica;
+	height: 100%;
+	overflow: hidden;
+}
+#canvas {
+	margin: 0px;
+	padding: 0px;
+	width: 600px;
+	height: 600px;
+	background: #000;
+}
+#light{
+	width: 262px;
+	height: 4px;
+	position: absolute;
+	top: 283px;
+	background: white;
+	-webkit-transform: rotate(-15deg);
+}
+.rainbow{
+	width: 300px;
+	height: 8px;
+	position: absolute;
+	left: 310px;
+	-webkit-transform: rotate(15deg);	
+}
+#r{
+	top: 275px;
+	background: red;
+}
+#o{
+	top: 280px;
+	background: orange;
+}
+#j{
+	top: 285px;
+	background: yellow;
+}
+#v{
+	top: 290px;
+	background: green;
+}
+#b{
+	top: 295px;
+	background: blue;
+}
+#vt{
+	top: 300px;
+	background: purple;
+}
+.triangle {
+	width: 0;
+	height: 0;
+	position: absolute;
+	top: 200px;
+	left: 210px;
+}
+.triangleNoir {
+	width: 0;
+	height: 0;
+	position: absolute;
+	top: 205px;
+	left: 216px;
+}
+.triangleBlanc {
+	width: 0;
+	height: 0;
+	position: absolute;
+	top: 195px;
+	left: 205px;
+}
+#zero {
+	border-left: 74px solid transparent;
+	border-right: 74px solid transparent;
+	border-bottom: 122px solid black;
+	border-radius: 6px;
+}
+#un {
+	border-left: 85px solid transparent;
+	border-right: 85px solid transparent;
+	border-bottom: 138px solid rgba(255, 255, 255, .8);
+}
+#deux {
+	border-left: 80px solid transparent;
+	border-right: 80px solid transparent;
+	border-bottom: 130px solid black;
+}
+#trois {
+	border-left: 80px solid transparent;
+	border-right: 80px solid transparent;
+	border-bottom: 130px solid rgba(255, 255, 255, .3);
+}

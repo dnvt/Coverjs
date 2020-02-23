@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<title>AM - Canvas</title>
+	<link rel=StyleSheet href="../css/controls.css" type="text/css" media=screen>
+	<link rel="stylesheet" type="text/css" href="./css/main.css" />
+	
+	<script type="text/javascript" src="../js/paper.js"></script>
+		<script type="text/javascript" src="../js/jquery-2.0.3.min.js"></script>	
+		<script type="text/javascript">
+	
+			paper.install(window);
+	
+	
+	
+	
+			/***  AUDIO API  ***/
+	
+			$(function () {
+			// Future-proofing...
+			var context;
+			if (typeof AudioContext !== "undefined") {
+			context = new AudioContext();
+			} else if (typeof webkitAudioContext !== "undefined") {
+			context = new webkitAudioContext();
+			} else {
+			$(".hideIfNoApi").hide();
+			$(".showIfNoApi").show();
+			return;
+			}
+	
+			// Overkill - if we've got Web Audio API, surely we've got requestAnimationFrame. Surely?...
+			// requestAnimationFrame polyfill by Erik Möller
+			// fixes from Paul Irish and Tino Zijdel
+			// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+			// http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
+			var lastTime = 0;
+			var vendors = ['ms', 'moz', 'webkit', 'o'];
+			for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+			window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+			window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame']
+			|| window[vendors[x] + 'CancelRequestAnimationFrame'];
+			}
+	
+			if (!window.requestAnimationFrame)
+			window.requestAnimationFrame = function (callback, element) {
+			var currTime = new Date().getTime();
+			var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+			var id = window.setTimeout(function () { callback(currTime + timeToCall); },
+			timeToCall);
+			lastTime = currTime + timeToCall;
+			return id;
+			};
+	
+			if (!window.cancelAnimationFrame)
+			window.cancelAnimationFrame = function (id) {
+			clearTimeout(id);
+			};
+	
+			// Create the analyser
+			var analyser = context.createAnalyser();
+			analyser.fftSize = 512;
+			var frequencyData = new Uint8Array(analyser.frequencyBinCount);
+	
+			// Set up the visualisation elements
+			var visualisation = $("#visualisation");
+			var barSpacingPercent = 200 / analyser.frequencyBinCount;
+			for (var i = 0; i < analyser.frequencyBinCount; i++) {
+			$("<div/>").css("left", i * barSpacingPercent + "%")
+			.appendTo(visualisation);
+			}
+			var bars = $("#visualisation > div");
+	
+			// Get the frequency data and update the visualisation
+			function update() {
+	
+	
+				requestAnimationFrame(update);
+	
+				analyser.getByteFrequencyData(frequencyData);
+	
+			   //console.log(frequencyData[2])
+	
+			bars.each(function (index, bar) {
+			bar.style.marginTop = -frequencyData[index] + 'px';
+			});
+	
+	
+	
+			};
+	
+			// Hook up the audio routing...
+			// player -> analyser -> speakers
+			// (Do this after the player is ready to play - https://code.google.com/p/chromium/issues/detail?id=112368#c4)
+			$("#player").bind('canplay', function() {
+			var source = context.createMediaElementSource(this);
+			source.connect(analyser);
+			analyser.connect(context.destination);
+			});
+	
+			// Kick it off...
+			update();
+	
+	
+			window.onload = function() {
+				paper.setup('canvas');
+	
+				var width, height, center;
+	
+				var path = new Path({
+					strokeColor: 'white',
+					strokeWidth: '7'
+				});
+	
+				var points = 42;
+	
+				center = view.center;
+				width = view.size.width;
+				height = view.size.height / 2;
+				path.segments = [];
+	
+				path.add(-5,height);
+				for(var i=1; i<18 ; i++){
+				   var point = new Point(width / points * i, (200 * Math.sin((i-.125)*21.8)/2)+height);
+				   path.add(point);
+				}
+				var point = new Point(340, 450);
+				path.add(point);
+				var point = new Point(365, 365);
+				path.add(point);
+				var point = new Point(390, 450);
+				path.add(point);
+				var point = new Point(405, 365);
+				path.add(point);
+				var point = new Point(420, 410);
+				path.add(point);
+				var point = new Point(435, 365);
+				path.add(point);
+				var point = new Point(450, 450);
+				path.add(point);
+	
+				for (var k = 25; k < points; k++) {
+					var point = new Point(width / points * k, (200 * Math.sin((k+.22)*21.8)/2)+height);
+					path.add(point);
+				}
+				path.add(width+5,height);
+	
+	
+				path.smooth();
+	
+				var am = 0;
+	
+				view.onFrame = function(event) {
+	
+					if(player.paused){
+						for (var i=1; i<18 ; i++) {
+							path.segments[i].point.y = ((200+frequencyData[i]) * Math.sin((i-.125)*21.8)/2)+height;
+						}
+	
+					}else{
+	
+					if(player.currentTime < 5.2){
+	
+						for (var i=1; i<18 ; i++) {
+							path.segments[i].point.y = ((200+frequencyData[i]) * Math.sin((i-.125)*21.8)/2)+height;
+						}
+	
+					}else{
+						am+=.05;
+	
+						for (var i=1; i<18 ; i++) {
+							path.segments[i].point.y = ((200+frequencyData[i]) * Math.sin((i-.125-Math.sin(am)/9)*21.8)/2)+height;
+						}
+	
+					}
+					for (var k = 25; k < points; k++) {
+						path.segments[k].point.y = ((200+frequencyData[k+100]*3) * Math.sin((k+.22)*21.8)/2)+height;
+					}
+				}
+	
+	
+				}
+			}
+			
+			parent.$('body').trigger( 'coverloaded' );
+	
+			});
+	
+	
+	
+	
+		</script>
+
+</head>
+<body>
+	
+<div class="cover">
+<canvas id="canvas" width="800" height="800"></canvas>
+</div>
+  <section>
+    <div id="controls">
+      <div id="infos">
+        <span id="buttons">
+	        <audio id="player" controls="controls" src="./diwk.mp3"></audio>
+        </span>
+	     <h1>Do I Wanna Know</h1>
+	     <h2>AM</h2>
+	     <h1>by Arctic Monkeys</h1>
+	     <div id="external">
+	     	<a id="itunes" href="https://itunes.apple.com/us/album/do-i-wanna-know-single/id675833115" target="itunes_store">iTunes</a>
+	     	<a id="website" href="http://www.arcticmonkeys.com/" target="_blank">www</a>
+	     </div>
+     </div>
+     <p class="leg">
+     		 This one was made using only the Web Audio API and <a href="http://paperjs.org" target="_blank">paper.js</a>
+     	 </p>
+    </div>
+  </section>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="chrome=1">
+		<script type="text/javascript"
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="./css/main.css" />
+		<link rel="stylesheet" type="text/css" href="../css/controls.css" />
+		<title>Pink Floyd</title>
+	</head>
+	<body>
+		<div id="canvas">
+			<div id="light"></div>
+			<div class="rainbow" id="r"></div>
+			<div class="rainbow" id="o"></div>
+			<div class="rainbow" id="j"></div>
+			<div class="rainbow" id="v"></div>
+			<div class="rainbow" id="b"></div>
+			<div class="rainbow" id="vt"></div>
+			<div class="triangleBlanc" id="un"></div>
+			<div class="triangle" id="deux"></div>
+			<div class="triangle" id="trois"></div>
+			<div class="triangleNoir" id="zero"></div>
+		</div>
+		<section>
+			<div id="controls">
+				<div id="infos">
+					<span id="buttons"> <button id="play" onclick="runCmd(this)" data-func="play" disabled></button> <button id="pause" onclick="runCmd(this)" data-func="pause" disabled></button> </span>
+					<h1>Time</h1>
+					<h2>The Dark Side of The Moon</h2>
+					<h1>by Pink Floyd</h1>
+					<div id="external">
+						<a id="itunes" href="">iTunes</a>
+						<a id="website" href="">www</a>
+					</div>
+				</div>
+			</div>
+		</section>
+		<script src="../js/beatdetektor.js"></script>
+		<script>
+			var grays = [['gray1', 'gray2', 'gray3'], ['gray4', 'gray5', 'gray6'], ['gray4', 'gray5', 'gray6'], ['gray7', 'gray8', 'gray9']];
+
+			for( i = 0; i < 28; i++) {
+
+				// On choisit l'élément après lequel on doit rajouter notre forme
+				if(i == 0) {
+					var elem = $('#bleuSombre');
+				} else {
+					var elem = $('.forme' + i)
+				}
+
+				// On génère le html qu'il nous faut mettre
+				var nb = i + 1;
+				var new_shape = '<div class="forme' + nb + '">';
+
+				// On a 4 triangles par forme
+				for( j = 0; j < 4; j++) {
+					var triangle_nb = j + 1;
+					if(j == 0) {
+						new_shape += '<div class="triangle' + 1 + '">';
+						new_shape += '<div class="rectangle">';
+					} else if(j == 1) {
+						new_shape += '<div class="triangle' + 2 + '">';
+						new_shape += '<div class="rectangle">';
+					} else if(j == 2) {
+						new_shape += '<div class="triangle' + 3 + '">';
+						new_shape += '<div class="rectangle">';
+					} else if(j == 3) {
+						new_shape += '<div class="triangle' + 4 + '">';
+						new_shape += '<div class="rectangle">';
+					}
+
+					for( k = 0; k < 50; k++) {
+						var rectangle_nb = k + 1;
+						new_shape += '<div class="tranche pos' + rectangle_nb + ' ' + grays[j][Math.floor(Math.random() * 3)] + '"></div>';
+						$('.pos' + k).css({
+							'margin' : k + 'px 0px 0px ' + k + 'px',
+							'position' : 'absolute'
+						});
+					}
+
+					// On pense à refermer les divs
+					new_shape += '</div></div>';
+				}
+				new_shape += '</div>';
+
+				// Et on rajoute notre shape
+				elem.after(new_shape);
+			}
+
+			var h3 = document.querySelector('h3');
+			var h1 = document.querySelector('h1');
+			var h5 = document.querySelector('h5');
+			var h2 = document.querySelector('h2');
+			var h4 = document.querySelector('h4');
+			var h6 = document.querySelector('h6');
+			var jaune = document.querySelector('#jaune');
+			var bleuClair1 = document.querySelector('#bleuClair1');
+			var bleuClair2 = document.querySelector('#bleuClair2');
+			var bleuClair3 = document.querySelector('#bleuClair3');
+			var bleuSombre = document.querySelector('#bleuSombre');
+			var canvas = document.querySelector('#canvas');
+			var gray = document.querySelectorAll('.gray');
+
+			var STAGES = [
+			function() {
+
+				ctx.fillStyle = 'black';
+				goCmd.className = '';
+
+			}];
+
+			function runCmd(el) {
+				if( typeof el == 'string') {
+					var func = el;
+				} else {
+					var func = el.dataset.func.toLowerCase();
+				}
+				sound[func]();
+				el.disabled = !el.disabled;
+				switch (func) {
+					case 'play':
+						document.querySelector("[data-func='pause']").disabled = false;
+						document.querySelector("[data-func='pause']").style.display = "block";
+						document.querySelector("[data-func='play']").style.display = "none";
+						break;
+					case 'pause':
+						document.querySelector("[data-func='play']").disabled = false;
+						document.querySelector("[data-func='play']").style.display = "block";
+						document.querySelector("[data-func='pause']").style.display = "none";
+						break;
+					default:
+					// noop
+				}
+			}
+
+			function Sound() {
+				const MIX_TO_MONO = false;
+				const NUM_SAMPLES = 2048;
+
+				var self_ = this;
+				var context_ = new (window.AudioContext || window.webkitAudioContext)();
+				var source_ = null;
+				var jsProcessor_ = null;
+				var analyser_ = null;
+				var viewTimeDomain_ = false;
+
+				var viewportOffset_ = 50//document.getElementById('viewport-offset');
+
+				var ftimer = 0;
+				var bd = new BeatDetektor();
+				var vu = new BeatDetektor.modules.vis.VU();
+				var portion = 0;
+
+				var processAudio_ = function(e) {
+
+					// Get left channel input. No need for output arrays. They're hooked up
+					// directly to the destination, and we're not doing any processing.
+					var inputArrayL = e.inputBuffer.getChannelData(0);
+
+					var freqByteData = new Uint8Array(analyser_.frequencyBinCount);
+
+					if(viewTimeDomain_) {
+						analyser_.getByteTimeDomainData(freqByteData);
+					} else {
+						analyser_.getByteFrequencyData(freqByteData);
+						//analyser_.fftSize = 2048;
+					}
+
+					bd.process(context_.currentTime, inputArrayL);
+					ftimer += bd.last_update;
+					if(ftimer > 1.0 / 24.0) {
+						vu.process(bd, ftimer);
+						ftimer = 0;
+					}
+
+					if(vu.vu_levels.length) {
+						var z = vu.vu_levels[0];
+					}
+					//redline.style.webkitTransform = 'rotate(' + ( 9 + 100 * z ) + 'deg) skewy(88.8deg)';
+
+					self_.renderFFT('goCmd', freqByteData);
+
+				};
+
+				this.renderFFT = function(format, freqByteData) {
+					freqByteData = freqByteData.subarray(156);
+
+					jaune.style.height = (220 + freqByteData[156] / 2) + 'px';
+					jaune.style.backgroundColor = 'rgb(241, 195, 72)';
+
+					bleuClair1.style.height = (30 + freqByteData[156] / 2) + 'px';
+					bleuClair1.style.top = (502 - 1.5 * freqByteData[156]) + 'px';
+
+					bleuClair2.style.height = (15 + freqByteData[156] / 3) + 'px';
+					bleuClair2.style.top = (511 - freqByteData[156] / 2) + 'px';
+
+					bleuClair3.style.height = (20 + freqByteData[156]) + 'px';
+					bleuClair3.style.top = (521 - freqByteData[156] / 12) + 'px';
+
+					bleuSombre.style.height = (100 + freqByteData[156] / 2) + 'px';
+					bleuSombre.style.top = (541 - freqByteData[156] / 3) + 'px';
+
+					for(var i = 0; i < 1400; ++i) {
+						gray[i].style.marginLeft = i + 2 + 'px';
+						gray[i].style.webkitTransform = 'rotate(90deg) skewy(5deg) scalex(' + freqByteData[100 + i * 10] / 90 + 1 + ')';
+
+					}
+					/*redline.style.webkitTransform = 'rotate(' + (9 + 100 * z ) + 'deg) skewy(88.8deg)';
+
+					 gray[i].style.top = i + 2 + 'px';*/
+				}
+
+				this.initAudio = function(arrayBuffer) {
+					if(source_) {
+						runCmd('pause');
+					}
+					source_ = context_.createBufferSource();
+					source_.buffer = context_.createBuffer(arrayBuffer, MIX_TO_MONO /*mixToMono*/);
+					source_.looping = true;
+
+					// This AudioNode will do the amplitude modulation effect directly in JavaScript
+					jsProcessor_ = context_.createJavaScriptNode(NUM_SAMPLES/*bufferSize*/, 1/*num inputs*/, 1 /*num outputs*/);
+					jsProcessor_.onaudioprocess = processAudio_;
+					analyser_ = context_.createAnalyser();
+
+					source_.connect(context_.destination);
+
+					document.querySelector("[data-func='play']").disabled = false;
+
+					parent.$('body').trigger('coverloaded');
+				};
+
+				this.load = function(url) {
+					var request = new XMLHttpRequest();
+					request.open('GET', url, true);
+					request.responseType = 'arraybuffer';
+					request.onload = function(e) {
+						self_.initAudio(request.response);
+					};
+					request.send();
+				};
+
+				this.play = function() {
+					if(!source_) {
+						sound.load('crave_you.mp3');
+					} else {
+						source_.connect(context_.destination);
+						source_.connect(analyser_);
+
+						analyser_.connect(jsProcessor_);
+						jsProcessor_.connect(context_.destination);
+
+						source_.noteOn(0);
+					}
+				};
+
+				this.pause = function() {
+					//source_.noteOff(0);
+					source_.disconnect(0);
+					jsProcessor_.disconnect(0);
+					analyser_.disconnect(0);
+
+				};
+			}
+
+			var sound = new Sound();
+			sound.load('witchHunt.mp3');
+
+		</script>
+	</body>
+</html>

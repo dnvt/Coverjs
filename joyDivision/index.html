@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Joy Division - CSS3</title>
+<link rel="stylesheet" href="./css/main.css" type="text/css" media="all" /> 
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<link rel=StyleSheet href="../css/controls.css" type="text/css" media=screen>
+</head>
+<body>
+
+	<!--	<img src="./cover.jpeg" /> -->
+
+	<div id="cover">
+		<canvas id="linezone" width="340" height="600">
+		</canvas> 
+	</div>
+	
+	 <section>
+    <div id="controls">
+      <div id="infos">
+        <span id="buttons">
+	        <button id="play" onclick="runCmd(this)" data-func="play" disabled></button>
+	        <button id="pause" onclick="runCmd(this)" data-func="pause" disabled></button>
+        </span>
+	     <h1>Disorder</h1>
+	     <h2>Unknown Pleasures</h2>
+	     <h1>by Joy Division</h1>
+	     <div id="external">
+	     	<a id="itunes" href="http://itunes.apple.com/us/album/disorder/id266603040?i=266603053&uo=4" target="itunes_store">iTunes</a>
+	     	<a id="website" href="http://www.neworderonline.com/" target="_blank">www</a>
+	     </div>
+     </div>
+    </div>
+  </section>
+  
+<script src="../js/beatdetektor.js"></script>
+<script>
+
+var STAGES = [
+  function() {
+
+    ctx.fillStyle = 'black';
+    goCmd.className = '';
+
+  }
+];
+draw();
+
+		function draw()
+				{
+					
+					var context = document.getElementById("linezone").getContext('2d');
+					context.clearRect ( 0 , 0 , 340 , 600 )
+				
+				for( var j = 0 ; j < 53 ; j++){
+		
+					var o = 90 + 8*j;
+							
+					context.lineWidth='1.4';
+					context.fillStyle='black';
+					context.strokeStyle='white';
+					context.beginPath();
+					
+					var fromx = 0;
+					var fromy = o;
+				
+					context.moveTo(0, (o));
+						for( var i = 0 ; i <34 ; i++){
+							
+							var p1x = 10+ 10*i;
+							var p1y = Math.random()*1 + o;
+							var p2x = p1x;
+							var p2y = o - 10*(   Math.sin(i-j)-.3*Math.cos(i)+0.6); 
+							
+							
+							if(i<9 || i>22){
+								context.lineTo(p1x, p1y);
+							}else{
+								context.lineTo(p2x, p2y);
+							}
+				
+						}
+				
+					context.fill();
+					context.stroke();	
+
+					}
+				
+				}
+      
+function runCmd(el) {
+  if (typeof el == 'string') {
+    var func = el;
+  } else {
+    var func = el.dataset.func.toLowerCase();
+  }
+  sound[func]();
+  el.disabled = !el.disabled;
+  switch (func) {
+    case 'play':
+      document.querySelector("[data-func='pause']").disabled = false;
+      document.querySelector("[data-func='pause']").style.display = "block";
+      document.querySelector("[data-func='play']").style.display = "none";
+      break;
+    case 'pause':
+      document.querySelector("[data-func='play']").disabled = false;
+      document.querySelector("[data-func='play']").style.display = "block";
+      document.querySelector("[data-func='pause']").style.display = "none";
+      break;
+    default:
+      // noop
+  }
+}
+
+function Sound() {
+  const MIX_TO_MONO = false;
+  const NUM_SAMPLES = 2048;
+
+  var self_ = this;
+  var context_ = new (window.AudioContext || window.webkitAudioContext)();
+  var source_ = null;
+  var jsProcessor_ = null;
+  var analyser_ = null;
+  var viewTimeDomain_ = false;
+
+  var viewportOffset_ = 50 //document.getElementById('viewport-offset');
+
+  var ftimer = 0;
+  var bd = new BeatDetektor();
+  var vu = new BeatDetektor.modules.vis.VU();
+  var portion = 0;
+
+  var processAudio_ = function(e) {
+
+    // Get left channel input. No need for output arrays. They're hooked up
+    // directly to the destination, and we're not doing any processing.
+    var inputArrayL = e.inputBuffer.getChannelData(0);
+
+    var freqByteData = new Uint8Array(analyser_.frequencyBinCount);
+
+    if (viewTimeDomain_) {
+      analyser_.getByteTimeDomainData(freqByteData);
+    } else {
+      analyser_.getByteFrequencyData(freqByteData);
+      //analyser_.fftSize = 2048;
+    }
+    
+     bd.process(context_.currentTime, inputArrayL);
+      ftimer += bd.last_update;
+      if (ftimer > 1.0 / 24.0) {
+        vu.process(bd, ftimer);
+        ftimer = 0;
+      }
+
+      if (vu.vu_levels.length) {
+        var z = vu.vu_levels[0];
+        }
+        
+        
+				
+
+    self_.renderFFT('goCmd', freqByteData);
+  };
+
+
+  this.renderFFT = function(format, freqByteData) {
+      freqByteData = freqByteData.subarray(200);
+draw();
+
+		function draw()
+				{
+					
+					var context = document.getElementById("linezone").getContext('2d');
+					context.clearRect ( 0 , 0 , 340 , 600 )
+				
+				for( var j = 0 ; j < 53 ; j++){
+		
+					var o = 90 + 8*j;
+							
+					context.lineWidth='1.4';
+					context.fillStyle='black';
+					context.strokeStyle='white';
+					context.beginPath();
+					
+					var fromx = 0;
+					var fromy = o;
+				
+					context.moveTo(0, (o));
+						for( var i = 0 ; i <34 ; i++){
+							
+							var p1x = 10+ 10*i;
+							var p1y = Math.random()*1 + o;
+							var p2x = p1x;
+							var p2y = o - (freqByteData[i]/10)*(   Math.sin(i-j-(freqByteData[j]/20))-.3*Math.cos(i)+0.6); 
+							
+							
+							if(i<9 || i>22){
+								context.lineTo(p1x, p1y);
+							}else{
+								context.lineTo(p2x, p2y);
+							}
+				
+						}
+				
+					context.fill();
+					context.stroke();	
+
+					}
+				
+				}
+      
+      
+
+  };
+
+this.initAudio = function(arrayBuffer) {
+    if (source_) {
+      runCmd('pause');
+    }
+
+    source_ = context_.createBufferSource();
+    source_.looping = true;
+
+    // Use async decoder if it is available.
+    if (context_.decodeAudioData) {
+      context_.decodeAudioData(arrayBuffer, function(buffer) {
+        source_.buffer = buffer;
+      }, function(e) {
+        console.log(e);
+      });
+      
+   } else {
+     source_.buffer = context_.createBuffer(arrayBuffer, MIX_TO_MONO /*mixToMono*/); 
+   } 
+   
+       // This AudioNode will do the amplitude modulation effect directly in JavaScript
+	jsProcessor_ = context_.createScriptProcessor(NUM_SAMPLES/*bufferSize*/, 1/*num inputs*/, 1 /*num outputs*/);
+    jsProcessor_.onaudioprocess = processAudio_;
+
+    analyser_ = context_.createAnalyser();
+
+    source_.connect(context_.destination);
+
+    document.querySelector("[data-func='play']").disabled = false;
+    
+   	parent.$('body').trigger( 'coverloaded' );
+
+  };
+
+  this.load = function(url) {
+    var request = new XMLHttpRequest();
+    request.open('GET', url, true);
+    request.responseType = 'arraybuffer';
+    request.onload = function(e) {
+      self_.initAudio(request.response);
+    };
+    request.send();
+  };
+
+  this.play = function() {
+    if (!source_) {
+      sound.load('disorder.mp3');
+    } else {
+      source_.connect(context_.destination);
+      source_.connect(analyser_);
+
+      analyser_.connect(jsProcessor_);
+      jsProcessor_.connect(context_.destination);
+
+      source_.start(0);
+    }
+  };
+
+  this.pause = function() {
+    //source_.noteOff(0);
+    source_.disconnect(0);
+    jsProcessor_.disconnect(0);
+    analyser_.disconnect(0);
+
+  };
+}
+
+var sound = new Sound();
+sound.load('disorder.mp3');
+</script>
+</body>
+</html>

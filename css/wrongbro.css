@@ -1,0 +1,24 @@
+body {
+	overflow: hidden;
+}
+
+#bottom {
+	top: 700px !important;
+}
+#hello{
+	z-index: 0 !important;
+	top: 20px !important;
+}
+#preview{
+	width: 500px;
+	height: 500px;
+	margin: 45px auto;
+	-webkit-transition: all .4s ease-out;
+}
+
+#preview img {
+	position:absolute;
+	left:50%;
+	margin-left: -250px;
+
+}

@@ -1,0 +1,47 @@
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+#whitbg{
+	width: 600px;
+	height: 600px;
+	background: orange;
+}
+body{
+	margin:0;
+	padding:0;
+}
+#cover{
+}
+.square{
+	position: absolute;
+	width: 19px;
+	height: 19px;
+}
+/*.square:hover{
+	-webkit-transform: scale(2);
+	background-color: red;
+	z-index: 5000;
+}*/
+.violet{
+	background: #FF42FF;
+}
+.yellow{
+	background: yellow;
+}
+.black{
+	background: black;
+}
+.cyan{
+	background: cyan;
+}
+.green{
+	background: #00F900;
+}
+.blue{
+	background: blue;
+}
+.red{
+	background: red;
+}

@@ -1,0 +1,50 @@
+#controls{
+	position: absolute;
+	left: 46%;
+	top: 630px;
+  z-index: 500;
+}
+button, .button:before {
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-size: 10pt;
+  color: black;
+  background: -webkit-linear-gradient(top, #F9F9F9 40%, #E3E3E3 70%);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  margin: 0;
+  vertical-align: middle;
+}
+button:not([disabled]):active,
+.button:active:before {
+  background: -webkit-linear-gradient(top, #E3E3E3 40%, #F9F9F9 70%);
+}
+button[disabled],
+.button[disabled] {
+  color: #ccc;
+}
+.button {
+  height: 30px;
+  width: 76px;
+}
+.button::-webkit-file-upload-button,
+.button::-moz-file-upload-button {
+  visibility: hidden;
+}
+.button:before {
+  content: 'Load file';
+  display: inline-block;
+}
+button:not([disabled]):hover,
+.button:not([disabled]):hover:before {
+  border-color: #ffcc00;
+}
+#buttons {
+  display: inline-block;
+  vertical-align: middle;
+}

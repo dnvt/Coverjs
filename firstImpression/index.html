@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<title>First Impression of Earth - CSS3</title>
+	<link rel=StyleSheet href="../css/controls.css" type="text/css" media=screen>
+	<link rel="stylesheet" type="text/css" href="./css/main.css" />
+</head>
+<body>
+	
+<div class="cover">
+	<div class="in">
+		<div class="graphics1">
+			<div class="teeth t1"></div>
+			<div class="teeth t2"></div>
+			<div class="teeth t3"></div>
+			<div class="teeth t4"></div>
+			<div class="teeth t5"></div>
+			<div class="teeth t6"></div>
+			<div class="teeth t7"></div>
+			<div class="teeth t8"></div>
+			<div class="teeth t9"></div>
+			<div class="teeth t10"></div>
+			<div class="teeth t11"></div>
+			<div class="stroke"></div>
+		</div>
+		<div class="graphics2">
+			<div class="teeth t1"></div>
+			<div class="teeth t2"></div>
+			<div class="teeth t3"></div>
+			<div class="teeth t4"></div>
+			<div class="teeth t5"></div>
+			<div class="teeth t6"></div>
+			<div class="teeth t7"></div>
+			<div class="teeth t8"></div>
+			<div class="teeth t9"></div>
+			<div class="teeth t10"></div>
+			<div class="teeth t11"></div>
+			<div class="stroke"></div>
+		</div>
+		<div class="stroke2"></div>
+		<div class="fontface redd first">FIRST</div>
+		<div class="fontface redd impres">IMPRESSIONS</div>
+		<div class="fontface redd of">OF&nbsp;EARTH</div>
+		<div class="fontface strokes">THE&nbsp;STROKES</div>
+	</div>
+</div>
+  <section>
+    <div id="controls">
+      <div id="infos">
+        <span id="buttons">
+	        <button id="play" onclick="runCmd(this)" data-func="play" disabled></button>
+	        <button id="pause" onclick="runCmd(this)" data-func="pause" disabled></button>
+        </span>
+	     <h1>You Only Live Once</h1>
+	     <h2>First Impression Of Earth</h2>
+	     <h1>by The Strokes</h1>
+	     <div id="external">
+	     	<a id="itunes" href="http://itunes.apple.com/us/album/you-only-live-once/id303094774?i=303094781&uo=4" target="itunes_store">iTunes</a>
+	     	<a id="website" href="http://www.thestrokes.com/" target="_blank">www</a>
+	     </div>
+     </div>
+    </div>
+  </section>
+
+
+<script src="../js/beatdetektor.js"></script>
+<script>
+
+var strokes = document.querySelectorAll('.teeth');
+var redline = document.querySelector('.stroke2');
+
+
+var STAGES = [
+  function() {
+
+    ctx.fillStyle = 'black';
+    goCmd.className = '';
+
+  }
+];
+
+function runCmd(el) {
+  if (typeof el == 'string') {
+    var func = el;
+  } else {
+    var func = el.dataset.func.toLowerCase();
+  }
+  sound[func]();
+  el.disabled = !el.disabled;
+  switch (func) {
+    case 'play':
+      document.querySelector("[data-func='pause']").disabled = false;
+      document.querySelector("[data-func='pause']").style.display = "block";
+      document.querySelector("[data-func='play']").style.display = "none";
+      break;
+    case 'pause':
+      document.querySelector("[data-func='play']").disabled = false;
+      document.querySelector("[data-func='play']").style.display = "block";
+      document.querySelector("[data-func='pause']").style.display = "none";
+      break;
+    default:
+      // noop
+  }
+}
+
+function Sound() {
+  const MIX_TO_MONO = false;
+  const NUM_SAMPLES = 2048;
+
+  var self_ = this;
+  var context_ = new (window.AudioContext || window.webkitAudioContext)();
+  var source_ = null;
+  var jsProcessor_ = null;
+  var analyser_ = null;
+  var viewTimeDomain_ = false;
+
+  var viewportOffset_ = 50 //document.getElementById('viewport-offset');
+
+  var ftimer = 0;
+  var bd = new BeatDetektor();
+  var vu = new BeatDetektor.modules.vis.VU();
+  var portion = 0;
+
+  var processAudio_ = function(e) {
+
+    // Get left channel input. No need for output arrays. They're hooked up
+    // directly to the destination, and we're not doing any processing.
+    var inputArrayL = e.inputBuffer.getChannelData(0);
+
+    var freqByteData = new Uint8Array(analyser_.frequencyBinCount);
+
+    if (viewTimeDomain_) {
+      analyser_.getByteTimeDomainData(freqByteData);
+    } else {
+      analyser_.getByteFrequencyData(freqByteData);
+      //analyser_.fftSize = 2048;
+    }
+    
+     bd.process(context_.currentTime, inputArrayL);
+      ftimer += bd.last_update;
+      if (ftimer > 1.0 / 24.0) {
+        vu.process(bd, ftimer);
+        ftimer = 0;
+      }
+
+      if (vu.vu_levels.length) {
+        var z = vu.vu_levels[0];
+        }
+        redline.style.webkitTransform = 'rotate(' + ( 9 + 100 * z ) + 'deg) skewy(88.8deg)';
+
+
+    self_.renderFFT('goCmd', freqByteData);
+
+  };
+
+  this.renderFFT = function(format, freqByteData) {
+      freqByteData = freqByteData.subarray(200);
+
+      for (var i = 0; i <22 ; ++i){
+      strokes[i].style.top =   (1.1*freqByteData[10+i*20] - 50) + 'px';
+      //strokes[i].style.webkitTransform = 'rotate(90deg) skewy(5deg) scalex(' + freqByteData[100+i*10]/90 +1 + ')';
+      
+      }
+      
+      
+
+  };
+
+this.initAudio = function(arrayBuffer) {
+    if (source_) {
+      runCmd('stop');
+    }
+
+    source_ = context_.createBufferSource();
+    source_.looping = true;
+
+    // Use async decoder if it is available.
+    if (context_.decodeAudioData) {
+      context_.decodeAudioData(arrayBuffer, function(buffer) {
+        source_.buffer = buffer;
+      }, function(e) {
+        console.log(e);
+      });
+      
+   } else {
+	   console.log("HE NOOOON!!")
+     source_.buffer = context_.createBuffer(arrayBuffer, MIX_TO_MONO /*mixToMono*/); 
+   } 
+   
+       // This AudioNode will do the amplitude modulation effect directly in JavaScript
+    jsProcessor_ = context_.createScriptProcessor(NUM_SAMPLES /*bufferSize*/, 1 /*num inputs*/, 1 /*num outputs*/);
+    jsProcessor_.onaudioprocess = processAudio_;
+
+    analyser_ = context_.createAnalyser();
+
+    source_.connect(context_.destination);
+
+    document.querySelector("[data-func='play']").disabled = false;
+    
+   	parent.$('body').trigger( 'coverloaded' );
+
+  };
+
+  this.load = function(url) {
+    var request = new XMLHttpRequest();
+    request.open('GET', url, true);
+    request.responseType = 'arraybuffer';
+    request.onload = function(e) {
+      self_.initAudio(request.response);
+    };
+    request.send();
+  };
+
+  this.play = function() {
+    if (!source_) {
+      sound.load('once.mp3');
+    } else {
+      source_.connect(context_.destination);
+      source_.connect(analyser_);
+
+      analyser_.connect(jsProcessor_);
+      jsProcessor_.connect(context_.destination);
+
+      source_.start();
+    }
+  };
+
+  this.pause = function() {
+    //source_.noteOff(0);
+    source_.disconnect(0);
+    jsProcessor_.disconnect(0);
+    analyser_.disconnect(0);
+
+  };
+}
+
+var sound = new Sound();
+sound.load('once.mp3');
+</script>
+</body>
+</html>
