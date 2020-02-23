@@ -1,47 +1,57 @@
-html, body {
-  height: 100%;
-  overflow: hidden;
+html,
+body {
+    height: 100%;
+    overflow: hidden;
 }
 
-#whitbg{
-	width: 600px;
-	height: 600px;
-	background: orange;
+#whitbg {
+    width: 600px;
+    height: 600px;
+    background: orange;
 }
-body{
-	margin:0;
-	padding:0;
+
+body {
+    margin: 0;
+    padding: 0;
 }
-#cover{
+
+#cover {}
+
+.square {
+    position: absolute;
+    width: 18px;
+    height: 18px;
 }
-.square{
-	position: absolute;
-	width: 19px;
-	height: 19px;
-}
+
 /*.square:hover{
 	-webkit-transform: scale(2);
 	background-color: red;
 	z-index: 5000;
 }*/
-.violet{
-	background: #FF42FF;
+.violet {
+    background: #FF42FF;
 }
-.yellow{
-	background: yellow;
+
+.yellow {
+    background: yellow;
 }
-.black{
-	background: black;
+
+.black {
+    background: black;
 }
-.cyan{
-	background: cyan;
+
+.cyan {
+    background: cyan;
 }
-.green{
-	background: #00F900;
+
+.green {
+    background: #00F900;
 }
-.blue{
-	background: blue;
+
+.blue {
+    background: blue;
 }
-.red{
-	background: red;
+
+.red {
+    background: red;
 }
